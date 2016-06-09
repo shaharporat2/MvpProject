@@ -32,7 +32,6 @@ public class Run {
 		PrintWriter out= new PrintWriter(new OutputStreamWriter(System.out));
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		MyView view = new MyView(out,in);
-		//Mymodel model = new Mymodel();
 		Mymodel model = new Mymodel(properties);
 		Presenter presenter = new Presenter(model,view);
 		view.addObserver(presenter);
