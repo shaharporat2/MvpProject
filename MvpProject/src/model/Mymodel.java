@@ -324,6 +324,7 @@ public class Mymodel extends Observable implements Model {
 				
 			}
 		}
+		sb.append("exit\n");
 		setChanged();
 		notifyObservers(sb.toString());
 	}

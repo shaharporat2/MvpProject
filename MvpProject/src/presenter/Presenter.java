@@ -63,7 +63,12 @@ public class Presenter implements Observer {
 					commands.get(userCommand[0]).doCommand(userCommand);
 				}
 			}else{
-				view.displayMessage((String)arg);
+				if(arg instanceof String){
+					view.displayMessage((String)arg);
+				}
+				else{
+					
+				}
 			}
 		}
 		

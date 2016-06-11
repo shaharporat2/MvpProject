@@ -55,7 +55,7 @@ public class MyView extends Observable implements View {
 		out.flush();
 	}
 	@Override
-	public void displayMessage(Maze3d msg){
+	public void displayMessage(Maze3d maze){
 		
 	}
 

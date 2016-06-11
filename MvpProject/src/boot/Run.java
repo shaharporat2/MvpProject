@@ -27,6 +27,9 @@ public class Run {
 		/**
 		 * 
 		 */
+		
+		
+		/*
 		LoadFromXml loadFromXml = new LoadFromXml();
 		Properties properties = loadFromXml.load();
 		
@@ -38,14 +41,20 @@ public class Run {
 		view.addObserver(presenter);
 		model.addObserver(presenter);
 		view.getUserCommand();
-		
-		/*
-		Display display = new Display();
-		Shell shell = new Shell();
-		BasicWindows mainWindows = new MainWindows(display, shell);
-
-		mainWindows.run();
 		*/
+		
+		
+		LoadFromXml loadFromXml = new LoadFromXml();
+		Properties properties = loadFromXml.load();
+		Mymodel model = new Mymodel(properties);
+		Display display = new Display();
+		Shell shell = new Shell(display);
+		BasicWindows mainWindows = new MainWindows(display, shell);
+		Presenter presenter = new Presenter(model,mainWindows);
+		mainWindows.addObserver(presenter);
+		model.addObserver(presenter);
+		mainWindows.run();
+		
 		
 	}
 

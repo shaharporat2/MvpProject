@@ -77,13 +77,5 @@ public class Properties implements Serializable {
 		sb.append("LogFilePath: " + getLogFilePath() + "\n" );
 		sb.append("mazeGenerate: " + getMazeGenerate() + "\n");
 		return sb.toString();
-	}
-	
-	
-
-
-	
-	
-	
-	
+	}	
 }
