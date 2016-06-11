@@ -47,6 +47,10 @@ public class MainWindows extends BasicWindows implements View, Runnable {
 		//getShell().setBackgroundMode(SWT.BACKGROUND);		
 		//Generate maze section
 		
+		
+		
+		/*Generate Maze Section*/
+		
 		Button genreratemaze = new Button(getShell(),SWT.BORDER);
 		genreratemaze.setText("GenerateMaze");
 		
@@ -64,7 +68,7 @@ public class MainWindows extends BasicWindows implements View, Runnable {
 
 		
 		
-		
+		/* Start Exit Section*/
 		Button exit = new Button(getShell(),SWT.PUSH);
 		exit.setText("exit");
 		
@@ -83,6 +87,7 @@ public class MainWindows extends BasicWindows implements View, Runnable {
 				
 			}
 		});
+		/*End Exit Section*/
 
 		
 		

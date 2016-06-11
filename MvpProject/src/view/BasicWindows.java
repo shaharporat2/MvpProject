@@ -19,11 +19,6 @@ abstract public class BasicWindows extends Observable implements Runnable, View 
 	private Shell Shell;
 	
 	
-	public BasicWindows() {
-		super();
-		display = new Display();
-		Shell = new Shell(display);
-	}
 	
 	public BasicWindows(Display display, Shell shell) {
 		super();
