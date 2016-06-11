@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Observable;
 
+import algorithms.mazeGenerators.Maze3d;
+
 public class MyView extends Observable implements View {
 
 	BufferedReader in;
@@ -52,4 +54,9 @@ public class MyView extends Observable implements View {
 		out.write(msg);
 		out.flush();
 	}
+	@Override
+	public void displayMessage(Maze3d msg){
+		
+	}
+
 }

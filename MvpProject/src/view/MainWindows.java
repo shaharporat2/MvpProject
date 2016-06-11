@@ -10,6 +10,8 @@ import org.eclipse.swt.internal.win32.POINT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
+
+import algorithms.mazeGenerators.Maze3d;
 public class MainWindows extends BasicWindows implements View, Runnable {
 
 
@@ -31,6 +33,14 @@ public class MainWindows extends BasicWindows implements View, Runnable {
 		// TODO Auto-generated method stub
 
 	}
+	
+	@Override
+	public void displayMessage(Maze3d msg) {
+		// TODO Auto-generated method stub
+
+	}
+	
+	
 
 	@Override
 	void initWidgets() {

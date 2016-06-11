@@ -29,6 +29,7 @@ public class Run {
 		 */
 		LoadFromXml loadFromXml = new LoadFromXml();
 		Properties properties = loadFromXml.load();
+		
 		PrintWriter out= new PrintWriter(new OutputStreamWriter(System.out));
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		MyView view = new MyView(out,in);
