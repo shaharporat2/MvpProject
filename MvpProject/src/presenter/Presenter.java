@@ -1,11 +1,13 @@
 package presenter;
 
+import view.MyView;
 import view.View;
 
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
+import algorithms.mazeGenerators.Maze3d;
 import model.Model;
 
 public class Presenter implements Observer {
@@ -68,8 +70,14 @@ public class Presenter implements Observer {
 					view.displayMessage((String)arg);
 				}
 				else{
-					
+					if(view instanceof MyView){
+						Maze3d maze = (Maze3d)arg;
+						view.displayMessage(maze.toString());
+					}
+					else{
+						view.displayMessage(arg);
+					}
 				}
 			}
-		}		
-}
+		}
+	}		

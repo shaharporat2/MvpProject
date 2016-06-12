@@ -86,10 +86,21 @@ public class generateMazeWindow extends BasicWindows {
 					String[] parameter = new String[2];
 					parameter[0] = "generate_maze_3d";
 					parameter[1] = "useDe";
-					
 					setChanged();
 					notifyObservers(parameter);
+					
 				}
+				else{
+					
+				}
+				getShell().dispose();
+				getDisplay().dispose();
+				Display mazeDisplay = new Display();
+				Shell mazeShell = new Shell(mazeDisplay);
+				MazeWindow mazeWindow = new MazeWindow(mazeDisplay, mazeShell);
+				
+				mazeWindow.addObserver(getObserver());
+				mazeWindow.run();
 			}
 			
 			@Override
@@ -102,12 +113,21 @@ public class generateMazeWindow extends BasicWindows {
 
 	@Override
 	public void displayMessage(String msg) {
-		super.displayMessage(msg);
+		if( msg.contains("is ready")){
+			setPharseCommand(msg.split("\\s+"));
+			String[] mazeName = getPharseCommand();
+			setChanged();
+			String [] command = new String[2];
+			command[0] ="display";
+			command[1] = mazeName[1];
+			notifyObservers(command);
+		}
+		
 	}
 
 	@Override
-	public void displayMessage(Maze3d maze) {
-		super.displayMessage(maze);
+	public void displayMessage(Object object) {
+		System.out.println("hello");
 	}
 	
 }

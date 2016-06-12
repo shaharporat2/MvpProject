@@ -34,7 +34,7 @@ public class MainWindows extends BasicWindows implements View, Runnable {
 	}
 	
 	@Override
-	public void displayMessage(Maze3d maze) {
+	public void displayMessage(Object object) {
 	}
 	
 	
@@ -66,7 +66,7 @@ public class MainWindows extends BasicWindows implements View, Runnable {
 				Shell generateshell = new Shell(generatedisplay);
 				generateMazeWindow generateMazeWindow = new generateMazeWindow(generatedisplay, generateshell);
 				generateMazeWindow.addObserver(getObserver());
-				
+				generateMazeWindow.setObserver(getObserver());
 				generateMazeWindow.run();
 			}
 			@Override

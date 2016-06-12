@@ -46,6 +46,7 @@ public class Mymodel extends Observable implements Model {
 		super();
 		this.properties = properties;
 		unzipAndLoadSolution(properties.getSolutionsFilePath());
+		
 	}
 	
 	public void dir(String path){
@@ -94,7 +95,10 @@ public class Mymodel extends Observable implements Model {
 			output = "Maze does not exists \n";
 		}
 		setChanged();
-		notifyObservers(output);
+		if(output.contains("not exists")){
+			notifyObservers(output);
+		}
+		notifyObservers(maze);
 	}
 	
 	@Override

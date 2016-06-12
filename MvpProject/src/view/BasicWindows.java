@@ -82,7 +82,13 @@ abstract public class BasicWindows extends Observable implements Runnable, View 
 	}
 
 	@Override
-	public void displayMessage(Maze3d maze) {
+	public synchronized void addObserver(Observer o) {
+		// TODO Auto-generated method stub
+		super.addObserver(o);
+	}
+
+	@Override
+	public void displayMessage(Object object) {
 		// TODO Auto-generated method stub
 		
 	}

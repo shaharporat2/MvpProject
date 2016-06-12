@@ -7,8 +7,11 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 
+import algorithms.mazeGenerators.Maze3d;
+
 public class MazeDisplay extends Canvas {
 	
+	Maze3d maze3d;
 	
 	int[][] mazeData={
 			{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},

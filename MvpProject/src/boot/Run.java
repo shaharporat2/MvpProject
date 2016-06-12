@@ -55,6 +55,7 @@ public class Run {
 		model.addObserver(presenter);
 		mainWindows.setObserver(presenter);
 		mainWindows.run();
+		
 	}
 
 }
