@@ -16,6 +16,16 @@ public class Properties implements Serializable {
 	
 	private String ProgramPath = "C:\\Program Files\\Maze";
 	
+	private String[] defaultMaze = {"","userName" ,"5","5","5"};
+	
+	public String[] getDefaultMaze() {
+		return defaultMaze;
+	}
+
+	public void setDefaultMaze(String[] defaultMaze) {
+		this.defaultMaze = defaultMaze;
+	}
+
 	public String getProgramPath() {
 		return ProgramPath;
 	}
@@ -24,12 +34,13 @@ public class Properties implements Serializable {
 		ProgramPath = programPath;
 	}
 
-	public Properties(int maxNumOfThread, String solutionsFilePath, String mazeGenerate, String LogFilePath) {
+	public Properties(int maxNumOfThread, String solutionsFilePath, String mazeGenerate, String LogFilePath, String[] defaultMaze) {
 		super();
 		this.maxNumOfThread = maxNumOfThread;
 		this.solutionsFilePath = solutionsFilePath;
 		this.mazeGenerate = mazeGenerate;
 		this.LogFilePath = LogFilePath;
+		this.defaultMaze = defaultMaze;
 	}
 	
 	public Properties() {

@@ -12,6 +12,12 @@ public class Generate3dMaze extends AbstractCommand {
 
 	@Override
 	public void doCommand(String[] param) {
+		if(param[1].equals("useDe")){
+				Properties properties = new Properties();
+				param = properties.getDefaultMaze();
+				long time=System.currentTimeMillis();
+				param[1] = param[1] + String.valueOf(time); 
+		}
 		try{
 			String name = param[1];
 			int floor = Integer.parseInt(param[2]);

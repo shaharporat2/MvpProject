@@ -1,6 +1,7 @@
 package view;
 
 import java.util.Observable;
+import java.util.Observer;
 
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -8,6 +9,7 @@ import org.eclipse.swt.widgets.Shell;
 import algorithms.mazeGenerators.Maze3d;
 
 abstract public class BasicWindows extends Observable implements Runnable, View {
+
 
 	/**
 	 * 
@@ -17,6 +19,7 @@ abstract public class BasicWindows extends Observable implements Runnable, View 
 	private String[] pharseCommand;
 	private Display display;
 	private Shell Shell;
+	private Observer observer;
 	
 	
 	
@@ -24,6 +27,14 @@ abstract public class BasicWindows extends Observable implements Runnable, View 
 		super();
 		this.display = display;
 		this.Shell = shell;
+	}
+
+	public Observer getObserver() {
+		return observer;
+	}
+
+	public void setObserver(Observer observer) {
+		this.observer = observer;
 	}
 
 	abstract void initWidgets();
@@ -67,6 +78,7 @@ abstract public class BasicWindows extends Observable implements Runnable, View 
 		if(msg.contains("exit")){
 			Shell.dispose();
 		}
+		System.out.println(msg);
 	}
 
 	@Override
@@ -87,8 +99,4 @@ abstract public class BasicWindows extends Observable implements Runnable, View 
 	public void setPharseCommand(String[] pharseCommand) {
 		this.pharseCommand = pharseCommand;
 	}
-	
-	
-	
-
 }

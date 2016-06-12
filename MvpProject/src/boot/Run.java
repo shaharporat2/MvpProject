@@ -19,7 +19,6 @@ import view.MainWindows;
 import view.MazeDisplay;
 import view.MyView;
 import view.View;
-import view.generateMazeWindow;
 
 public class Run {
 
@@ -54,8 +53,8 @@ public class Run {
 		Presenter presenter = new Presenter(model,mainWindows);
 		mainWindows.addObserver(presenter);
 		model.addObserver(presenter);
+		mainWindows.setObserver(presenter);
 		mainWindows.run();
-		
 	}
 
 }

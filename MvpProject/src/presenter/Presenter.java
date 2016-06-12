@@ -54,7 +54,8 @@ public class Presenter implements Observer {
 		 */
 		@Override
 		public void update(Observable o, Object arg) {
-			if(o == view){
+			if(o instanceof View){
+				view = (View)o;
 				String [] userCommand;
 				userCommand = (String[])arg;
 				if(commands.get(userCommand[0]) == null ){
@@ -70,10 +71,5 @@ public class Presenter implements Observer {
 					
 				}
 			}
-		}
-		
-		
-		
-		
-		
+		}		
 }

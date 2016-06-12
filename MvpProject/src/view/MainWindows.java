@@ -1,6 +1,7 @@
 package view;
 
 import java.lang.reflect.GenericArrayType;
+import java.util.Observer;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -59,7 +60,14 @@ public class MainWindows extends BasicWindows implements View, Runnable {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				getShell().dispose();
+				getDisplay().dispose();
+				Display generatedisplay = new Display();
+				Shell generateshell = new Shell(generatedisplay);
+				generateMazeWindow generateMazeWindow = new generateMazeWindow(generatedisplay, generateshell);
+				generateMazeWindow.addObserver(getObserver());
 				
+				generateMazeWindow.run();
 			}
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {				
