@@ -12,7 +12,7 @@ import algorithms.mazeGenerators.Maze3d;
 public class MazeDisplay extends Canvas {
 	
 	Maze3d maze3d;
-	
+	/*
 	int[][] mazeData={
 			{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 			{1,0,0,0,0,0,0,0,1,1,0,1,0,0,1},
@@ -25,9 +25,37 @@ public class MazeDisplay extends Canvas {
 			{1,0,0,0,0,0,0,0,0,1,0,1,0,0,1},
 			{1,1,1,1,1,1,1,1,1,1,1,1,0,1,1},
 			};
+			
+	 */
+	
+	int [][] mazeData;
 	
 	
 	
+	public Maze3d getMaze3d() {
+		return maze3d;
+	}
+
+
+
+	public void setMaze3d(Maze3d maze3d) {
+		this.maze3d = maze3d;
+	}
+
+
+
+	public int[][] getMazeData() {
+		return mazeData;
+	}
+
+
+
+	public void setMazeData(int[][] mazeData) {
+		this.mazeData = mazeData;
+	}
+
+
+
 	public MazeDisplay(Composite parent, int style){
 		super(parent, style);
 		setBackground(new Color(null,0,0,0));

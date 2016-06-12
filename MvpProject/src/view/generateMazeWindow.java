@@ -12,6 +12,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import algorithms.mazeGenerators.Maze3d;
+import algorithms.mazeGenerators.Position;
 
 public class generateMazeWindow extends BasicWindows {
 
@@ -93,14 +94,9 @@ public class generateMazeWindow extends BasicWindows {
 				else{
 					
 				}
+				
 				getShell().dispose();
 				getDisplay().dispose();
-				Display mazeDisplay = new Display();
-				Shell mazeShell = new Shell(mazeDisplay);
-				MazeWindow mazeWindow = new MazeWindow(mazeDisplay, mazeShell);
-				
-				mazeWindow.addObserver(getObserver());
-				mazeWindow.run();
 			}
 			
 			@Override
@@ -127,7 +123,14 @@ public class generateMazeWindow extends BasicWindows {
 
 	@Override
 	public void displayMessage(Object object) {
-		System.out.println("hello");
+		Maze3d maze = (Maze3d)object;
+		Position start = maze.getStartPosition();
+		int [][] currentfloor = maze.getCrossSectionByY(start.getFloor());
+		Display mazeDisplay = new Display();
+		Shell mazeShell = new Shell(mazeDisplay);
+		MazeWindow mazeWindow = new MazeWindow(mazeDisplay, mazeShell);
+		mazeWindow.addObserver(getObserver());
+		mazeWindow.run();
 	}
 	
 }

@@ -97,8 +97,9 @@ public class Mymodel extends Observable implements Model {
 		setChanged();
 		if(output.contains("not exists")){
 			notifyObservers(output);
+		}else{
+			notifyObservers(maze);
 		}
-		notifyObservers(maze);
 	}
 	
 	@Override
