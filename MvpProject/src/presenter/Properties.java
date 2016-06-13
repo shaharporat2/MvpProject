@@ -16,7 +16,7 @@ public class Properties implements Serializable {
 	
 	private String ProgramPath = "C:\\Program Files\\Maze";
 	
-	private String[] defaultMaze = {"","userName" ,"5","5","5"};
+	private String[] defaultMaze = {"","userName" ,"15","15","15"};
 	
 	public String[] getDefaultMaze() {
 		return defaultMaze;

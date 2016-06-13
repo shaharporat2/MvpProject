@@ -128,9 +128,15 @@ public class generateMazeWindow extends BasicWindows {
 		int [][] currentfloor = maze.getCrossSectionByY(start.getFloor());
 		Display mazeDisplay = new Display();
 		Shell mazeShell = new Shell(mazeDisplay);
-		MazeWindow mazeWindow = new MazeWindow(mazeDisplay, mazeShell);
+		MazeDisplay mazeDisplay2 = new MazeDisplay(mazeShell, SWT.BORDER);
+		mazeDisplay2.setMazeData(currentfloor);
+		mazeDisplay2.setMaze3d(maze);
+		MazeWindow mazeWindow = new MazeWindow(mazeDisplay, mazeShell,mazeDisplay2);
 		mazeWindow.addObserver(getObserver());
+		
+		
 		mazeWindow.run();
+		
 	}
 	
 }

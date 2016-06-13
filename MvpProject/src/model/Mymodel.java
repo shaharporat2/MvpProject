@@ -18,6 +18,7 @@ import Utils.*;
 import algorithms.demo.MazeAdapter;
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.MyMaze3dGenerator;
+import algorithms.mazeGenerators.SimpleMaze3dGenerato;
 import algorithms.search.BestFirstSearch;
 import algorithms.search.BreadthFirstSearch;
 import algorithms.search.DFS;

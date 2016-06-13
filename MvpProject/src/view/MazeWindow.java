@@ -8,18 +8,27 @@ import org.eclipse.swt.widgets.Shell;
 
 public class MazeWindow extends BasicWindows {
 
-	public MazeWindow(Display display, Shell shell) {
+	MazeDisplay mazeDisplay;
+	
+	
+	public MazeDisplay getMazeDisplay() {
+		return mazeDisplay;
+	}
+
+	public void setMazeDisplay(MazeDisplay mazeDisplay) {
+		this.mazeDisplay = mazeDisplay;
+	}
+
+	public MazeWindow(Display display, Shell shell, MazeDisplay mazeDisplay) {
 		super(display, shell);
-		// TODO Auto-generated constructor stub
+		this.mazeDisplay = mazeDisplay;
 	}
 
 	@Override
 	void initWidgets() {
 		getShell().setText("Maze Window");
 		getShell().setLayout(new GridLayout(2,true));
-		
-		//MazeDisplay maze = new MazeDisplay(getShell(),SWT.BORDER);
-		//maze.setLayoutData(new GridData(SWT.FILL, SWT.FILL,true,true));
+		mazeDisplay.setLayoutData(new GridData(SWT.FILL, SWT.FILL,true,true));
 	}
 
 }
