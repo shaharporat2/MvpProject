@@ -1,5 +1,7 @@
 package view;
 
+import java.util.ArrayList;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
@@ -12,6 +14,7 @@ import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 
+import algorithms.mazeGenerators.Direction;
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 
@@ -93,8 +96,40 @@ public class MazeDisplay extends Canvas {
 	
 	public void moveDown(){
 		Position newPosition = new Position(position.getFloor(),position.getRows(),position.getCols()+1);
+		ArrayList<Direction> directions = maze3d.getPossibleDirections(newPosition);
+		if(directions.contains(Direction.BACKWARD)){
+			position.setPosition(newPosition);
+			this.redraw();
+		}
+		//this.redraw();
+	}
+	
+	public void moveUp(){
+		Position newPosition = new Position(position.getFloor(),position.getRows(),position.getCols()-1);
 		position.setPosition(newPosition);
 		this.redraw();
 	}
-		
+	
+	public void moveRight(){
+		Position newPosition = new Position(position.getFloor(),position.getRows() + 1,position.getCols());
+		position.setPosition(newPosition);
+		this.redraw();
+	}
+	
+	public void moveLeft(){
+		Position newPosition = new Position(position.getFloor(),position.getRows()-1,position.getCols());
+		position.setPosition(newPosition);
+		this.redraw();
+	}
+	public void moveFloorDown(){
+		Position newPosition = new Position(position.getFloor() - 1 ,position.getRows(),position.getCols());
+		position.setPosition(newPosition);
+		this.redraw();
+	}
+	
+	public void moveFloorUp(){
+		Position newPosition = new Position(position.getFloor() + 1,position.getRows(),position.getCols());
+		position.setPosition(newPosition);
+		this.redraw();
+	}		
 }

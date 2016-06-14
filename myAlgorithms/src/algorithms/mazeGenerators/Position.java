@@ -52,5 +52,11 @@ public class Position implements Serializable {
 		
 		return pos;
 	}
+	
+	public void setPosition(Position p){
+		this.floor = p.floor;
+		this.rows = p.rows;
+		this.cols = p.cols;
+	}
 }
  

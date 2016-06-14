@@ -49,14 +49,19 @@ public class MazeWindow extends BasicWindows{
 					mazeDisplay.moveDown();
 					break;
 				case SWT.ARROW_UP:
+					mazeDisplay.moveUp();
 					break;
 				case SWT.ARROW_LEFT:
+					mazeDisplay.moveLeft();
 					break;
 				case SWT.ARROW_RIGHT:
+					mazeDisplay.moveRight();
 					break;
 				case SWT.PAGE_DOWN:
+					mazeDisplay.moveFloorDown();
 					break;
 				case SWT.PAGE_UP:
+					mazeDisplay.moveFloorUp();
 					break;
 				default:
 					break;
