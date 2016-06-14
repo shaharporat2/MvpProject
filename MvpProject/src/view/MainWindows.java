@@ -35,6 +35,7 @@ public class MainWindows extends BasicWindows implements View, Runnable {
 	
 	@Override
 	public void displayMessage(Object object) {
+		
 	}
 	
 	
