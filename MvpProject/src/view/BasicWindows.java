@@ -64,12 +64,11 @@ abstract public class BasicWindows extends Observable implements Runnable, View 
 	}
 
 	public void setShell(Shell shell) {
-		Shell = shell;
+		this.Shell = shell;
 	}
 
 	@Override
 	public void getUserCommand() {
-		// TODO Auto-generated method stub
 		
 	}
 

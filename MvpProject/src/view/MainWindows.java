@@ -1,22 +1,30 @@
 package view;
 
 import java.lang.reflect.GenericArrayType;
+import java.net.URL;
 import java.util.Observer;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.internal.win32.POINT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
 
+import Utils.Utils;
 import algorithms.mazeGenerators.Maze3d;
+import boot.LoadFromXml;
+import presenter.Properties;
 
 public class MainWindows extends BasicWindows implements View, Runnable {
+	
+	private Image mazeImg;
 	
 	public MainWindows(Display display, Shell shell) {
 		super(display,shell);
@@ -38,16 +46,26 @@ public class MainWindows extends BasicWindows implements View, Runnable {
 		
 	}
 	
+	private void loadImage(Shell shell){
+		Utils util = new Utils();
+		 String resource = util.getClass().getResource("MazeRunner.jpg").getPath();
+		try{
+			mazeImg = new Image(getDisplay(), resource);
+		}catch(Exception e){
+			System.out.println("Error loading pic");
+		}
+	}
+	
 	
 
 	@Override
 	void initWidgets() {
-		getShell().setSize(250, 300);
 		getShell().setText("Maze Game");
 		getShell().setLayout(new GridLayout(2,false));
-		//getShell().setBackgroundImage(new Image(getDisplay(),this.getClass().getResource("MazeRunner.jpg").getPath()));
-		//getShell().setBackgroundMode(SWT.BACKGROUND);		
-		//Generate maze section
+		loadImage(getShell());
+		getShell().setBackgroundImage(mazeImg);
+		Rectangle rect = mazeImg.getBounds();
+        getShell().setSize(rect.width,rect.height);
 		
 		
 		
@@ -75,6 +93,27 @@ public class MainWindows extends BasicWindows implements View, Runnable {
 			}
 		});
 
+		
+		/*Change Configuration*/
+		Button changeConfig = new Button(getShell(),SWT.PUSH);
+		changeConfig.setText("Change Configuration");
+		
+		changeConfig.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				LoadFromXml loadFromXml = new LoadFromXml();
+				Properties properties = loadFromXml.load();
+				System.out.println(properties.toString());
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
 		
 		
 		/* Start Exit Section*/

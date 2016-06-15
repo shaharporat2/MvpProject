@@ -3,11 +3,16 @@ package presenter;
 import view.MyView;
 import view.View;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Map.Entry;
 
 import algorithms.mazeGenerators.Maze3d;
+import algorithms.search.Solution;
 import model.Model;
 
 public class Presenter implements Observer {
@@ -18,14 +23,16 @@ public class Presenter implements Observer {
 	
 		private Model model;
 		private View view;
+		private Properties properties;
 		
 		
 		private HashMap<String, Command> commands = new HashMap<>();
 		
-		public Presenter(Model model, View view) {
+		public Presenter(Model model, View view, Properties properties) {
 			super();
 			this.model = model;
 			this.view = view;
+			this.properties = properties;
 			
 			Dir dir = new Dir(model, view);
 			Generate3dMaze generate3dMaze = new Generate3dMaze(model, view);
@@ -51,6 +58,14 @@ public class Presenter implements Observer {
 			commands.put("dir",dir);
 		}
 
+		public Properties getProperties() {
+			return properties;
+		}
+
+		public void setProperties(Properties properties) {
+			this.properties = properties;
+		}
+
 		/**
 		 * 
 		 */
@@ -58,6 +73,7 @@ public class Presenter implements Observer {
 		public void update(Observable o, Object arg) {
 			if(o instanceof View){
 				view = (View)o;
+				setNewView(view);
 				String [] userCommand;
 				userCommand = (String[])arg;
 				if(commands.get(userCommand[0]) == null ){
@@ -71,13 +87,25 @@ public class Presenter implements Observer {
 				}
 				else{
 					if(view instanceof MyView){
-						Maze3d maze = (Maze3d)arg;
-						view.displayMessage(maze.toString());
+						if(arg instanceof Maze3d){
+							Maze3d maze = (Maze3d)arg;
+							view.displayMessage(maze.toString());
+						}else{
+							Solution sol = (Solution)arg;
+							view.displayMessage(sol.toString());
+						}
 					}
 					else{
 						view.displayMessage(arg);
 					}
 				}
+			}
+		}
+		
+		public void setNewView(View view){
+			
+			for (Entry<String, Command> e : commands.entrySet()) {
+				e.getValue().setView(view);
 			}
 		}
 	}		

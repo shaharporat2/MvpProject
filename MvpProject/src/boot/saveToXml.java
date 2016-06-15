@@ -1,56 +1,31 @@
 package boot;
 
-
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
-import javax.xml.stream.XMLOutputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
-
+import java.beans.XMLEncoder;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
 import presenter.Properties;
 
 public class saveToXml {
 	
-	
-	
 	public static void main(String[] args){
-		File file = new File("C:\\Program Files\\Maze\\properties.xml");
-	
+		
+		String path = "C:\\Program Files\\Maze\\properties1.xml";
+		
 		try{
-			if(!file.exists()){
-				file.createNewFile();
-			}
-			PrintWriter writer = new PrintWriter("C:\\Program Files\\Maze\\properties.xml");
 			Properties properties = new Properties();
-			StringWriter stringWriter = new StringWriter();
-			XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
-			XMLStreamWriter xmlStreamWriter = xmlOutputFactory.createXMLStreamWriter(stringWriter);
-			xmlStreamWriter.writeStartDocument();
-			xmlStreamWriter.writeStartElement("maze");
-			xmlStreamWriter.writeStartElement("SystemFiles");
-			xmlStreamWriter.writeAttribute("solutionsFile",properties.getSolutionsFilePath());
-			xmlStreamWriter.writeAttribute("LogFilePath",properties.getLogFilePath());
-			xmlStreamWriter.writeEndElement();
-			xmlStreamWriter.writeStartElement("Defaults");
-			xmlStreamWriter.writeAttribute("GenerateMaze",properties.getMazeGenerate());
-			xmlStreamWriter.writeAttribute("MaxThread",Integer.toString(properties.getMaxNumOfThread()));
-			xmlStreamWriter.writeEndElement();
-			xmlStreamWriter.writeEndDocument();
-			xmlStreamWriter.flush();
-			xmlStreamWriter.close();
+			String [] defaultMaze = {"","userName","5","5","5"};
+			properties.setDefaultMaze(defaultMaze);
+			properties.setDefaultSolve("DFS");
+			properties.setLogFilePath("C:\\Program Files\\Maze\\logs.txt");
+			properties.setProgramPath("C:\\Program Files\\Maze");
+			properties.setMaxNumOfThread(20);
+			properties.setSolutionsFilePath("C:\\Program Files\\Maze\\solutions.sol");
+			properties.setMazeGenerate("MyMaze");
+			XMLEncoder xmlEncoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(path)));
+			xmlEncoder.writeObject(properties);
+			xmlEncoder.close();
+		}catch(Exception e){
 			
-			String xmlString = stringWriter.getBuffer().toString();
-			stringWriter.close();
-			writer.print(xmlString);
-			writer.close();
-			
-		}catch(XMLStreamException e){
-			System.out.println("Error in XML");
-		}catch (IOException e) {
-			System.out.println("Error opening file");
 		}
 	}
 }

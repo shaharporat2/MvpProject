@@ -58,5 +58,11 @@ public class Position implements Serializable {
 		this.rows = p.rows;
 		this.cols = p.cols;
 	}
+
+	public boolean equals(Position p) {
+		return((p.floor == this.floor) && (p.rows == this.rows) && (p.cols == this.cols));
+	}
+	
+	
 }
  

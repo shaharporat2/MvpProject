@@ -209,6 +209,7 @@ public class Maze3d {
 			dirs.add(Direction.UP);
 		}
 		return dirs;
+		
 	}
 
 	@Override

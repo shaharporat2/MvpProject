@@ -8,17 +8,26 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 
+	
+
+
 public class generateMazeWindow extends BasicWindows {
+	
+	Shell shell;
+	Display display;
+	String name;
 
 	public generateMazeWindow(Display display, Shell shell) {
 		super(display, shell);
-		// TODO Auto-generated constructor stub
+		this.shell = shell;
+		this.display = display;
 	}
 
 	@Override
@@ -92,11 +101,15 @@ public class generateMazeWindow extends BasicWindows {
 					
 				}
 				else{
-					
+					String [] parameter = new String[5];
+					parameter[0] = "generate_maze_3d";
+					parameter[1] = name.getText();
+					parameter[2] = floor.getText();
+					parameter[3] = rows.getText();
+					parameter[4] = cols.getText();
+					setChanged();
+					notifyObservers(parameter);
 				}
-				
-				getShell().dispose();
-				getDisplay().dispose();
 			}
 			
 			@Override
@@ -116,13 +129,20 @@ public class generateMazeWindow extends BasicWindows {
 			String [] command = new String[2];
 			command[0] ="display";
 			command[1] = mazeName[1];
+			name = mazeName[1];
 			notifyObservers(command);
+		}
+		if(msg.contains("Maze generation failed")){
+			MessageBox messageBox = new MessageBox(getShell());
+			messageBox.setText("You has enterd invalid values");
+			messageBox.open();
 		}
 		
 	}
 
 	@Override
 	public void displayMessage(Object object) {
+		
 		Maze3d maze = (Maze3d)object;
 		Position start = maze.getStartPosition();
 		int [][] currentfloor = maze.getCrossSectionByY(start.getFloor());
@@ -132,7 +152,8 @@ public class generateMazeWindow extends BasicWindows {
 		mazeDisplay2.setMazeData(currentfloor);
 		MazeWindow mazeWindow = new MazeWindow(mazeDisplay, mazeShell,mazeDisplay2);
 		mazeWindow.addObserver(getObserver());
-		
+		mazeWindow.setObserver(getObserver());
+		mazeWindow.setName(name);
 		mazeWindow.run();
 		
 	}

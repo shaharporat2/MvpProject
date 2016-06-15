@@ -67,7 +67,22 @@ public class Mymodel extends Observable implements Model {
 	}
 	
 	public void generateMaze3D(String name, int floor, int rows, int cols) {
-		if (mazeHash.get(name) != null) {
+		if((floor == -1) && (cols == -1) && ( rows == -1))
+		{
+			String [] param = properties.getDefaultMaze();
+			name = param[1];
+			floor = Integer.parseInt(param[2]);
+			rows = Integer.parseInt(param[3]);
+			cols = Integer.parseInt(param[4]);
+			
+		}
+		
+		String newName = name;
+		int newFloor = floor;
+		int newRows = rows;
+		int newCols = cols;
+		
+		if (mazeHash.get(newName) != null) {
 			output = "Maze " + name + " already exists please choose other name \n";
 			setChanged();
 			notifyObservers(output);
@@ -76,9 +91,9 @@ public class Mymodel extends Observable implements Model {
 				@Override
 				public void run() {
 					MyMaze3dGenerator generate = new MyMaze3dGenerator();
-					Maze3d maze = generate.generate(floor, rows, cols);
-					mazeHash.put(name, maze);
-					output =  "Maze " + name + " is ready \n";
+					Maze3d maze = generate.generate(newFloor, newRows, newCols);
+					mazeHash.put(newName, maze);
+					output =  "Maze " + newName + " is ready \n";
 					setChanged();
 					notifyObservers(output);
 				}
@@ -266,11 +281,18 @@ public class Mymodel extends Observable implements Model {
 			Thread thread = new Thread(new Runnable() {
 				@Override
 				public void run() {
+					String alg;
+					if(algorithm.equals("def")){
+						alg = properties.getDefaultSolve();
+					}
+					else{
+						alg = algorithm;
+					}
 
 					Maze3d maze = mazeHash.get(name);
 					MazeAdapter adapter = new MazeAdapter(maze);
 
-					switch (algorithm) {
+					switch (alg) {
 					case "DFS":
 						DFS DFS = new DFS();
 						Solution DFSSolution = DFS.search(adapter);
@@ -308,13 +330,14 @@ public class Mymodel extends Observable implements Model {
 	public void displaySolution(String name) {
 		if (mazeSol.get(name) == null) {
 			output = "Solution does not exists \n";
+			setChanged();
+			notifyObservers(output);
 		} else {
 			Solution sol = new Solution();
 			sol = mazeSol.get(name);
-			output = sol.toString();
-		}
-		setChanged();
-		notifyObservers(output);
+			setChanged();
+			notifyObservers(sol);
+		}	
 	}
 	
 	@Override

@@ -13,8 +13,9 @@ public class Generate3dMaze extends AbstractCommand {
 	@Override
 	public void doCommand(String[] param) {
 		if(param[1].equals("useDe")){
-				Properties properties = new Properties();
-				param = properties.getDefaultMaze();
+				param[2] = "-1";
+				param[3] = "-1";
+				param[4] = "-1";
 				long time=System.currentTimeMillis();
 				param[1] = param[1] + String.valueOf(time); 
 		}
@@ -26,6 +27,7 @@ public class Generate3dMaze extends AbstractCommand {
 			Model model = this.getModel();
 			model.generateMaze3D(name, floor, rows, cols);
 		}catch(Exception e){
+			
 			getView().displayMessage("Maze generation failed\n");
 		}
 	}

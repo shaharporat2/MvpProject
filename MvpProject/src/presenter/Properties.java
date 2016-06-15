@@ -5,18 +5,29 @@ import java.io.Serializable;
 public class Properties implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
+		
+	private String[] defaultMaze;
+	
+	private int maxNumOfThread;
+	
+	private String solutionsFilePath;
+	
+	private String LogFilePath;
+	
+	private String mazeGenerate;
+	
+	private String ProgramPath;
+	
+	private String defaultSolve;
+	
+	
+	public String getDefaultSolve() {
+		return defaultSolve;
+	}
 
-	private int maxNumOfThread = 20;
-	
-	private String solutionsFilePath = "C:\\Program Files\\Maze\\solutions.sol";
-	
-	private String LogFilePath = "C:\\Program Files\\Maze\\logs.txt";
-	
-	private String mazeGenerate = "MyMaze";
-	
-	private String ProgramPath = "C:\\Program Files\\Maze";
-	
-	private String[] defaultMaze = {"","userName" ,"15","15","15"};
+	public void setDefaultSolve(String defaultSolve) {
+		this.defaultSolve = defaultSolve;
+	}
 	
 	public String[] getDefaultMaze() {
 		return defaultMaze;
@@ -34,13 +45,14 @@ public class Properties implements Serializable {
 		ProgramPath = programPath;
 	}
 
-	public Properties(int maxNumOfThread, String solutionsFilePath, String mazeGenerate, String LogFilePath, String[] defaultMaze) {
+	public Properties(int maxNumOfThread, String solutionsFilePath, String mazeGenerate, String LogFilePath, String[] defaultMaze, String defaultSolve) {
 		super();
 		this.maxNumOfThread = maxNumOfThread;
 		this.solutionsFilePath = solutionsFilePath;
 		this.mazeGenerate = mazeGenerate;
 		this.LogFilePath = LogFilePath;
 		this.defaultMaze = defaultMaze;
+		this.defaultSolve = defaultSolve;
 	}
 	
 	public Properties() {
@@ -87,6 +99,9 @@ public class Properties implements Serializable {
 		sb.append("solutionsFilePath: " + getSolutionsFilePath() + "\n");
 		sb.append("LogFilePath: " + getLogFilePath() + "\n" );
 		sb.append("mazeGenerate: " + getMazeGenerate() + "\n");
+		sb.append("Default solve: " + getDefaultSolve() + "\n");
+		sb.append("Program path: " + getProgramPath() + "\n");
+		sb.append("Default maze values " + getDefaultMaze());
 		return sb.toString();
 	}	
 }

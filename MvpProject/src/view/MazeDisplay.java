@@ -13,10 +13,12 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.MessageBox;
 
 import algorithms.mazeGenerators.Direction;
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
+import algorithms.search.Solution;
 
 public class MazeDisplay extends Canvas {
 	
@@ -73,8 +75,8 @@ public class MazeDisplay extends Canvas {
 					for(int j=0;j<mazeData[i].length;j++){
 						int x=j*w;
 						int y=i*h;
-						if((position.getRows() == j) && (position.getCols() == i)){
-						e.gc.drawImage(img, 0, 0, img.getBounds().width, img.getBounds().height, x, y, w, h);
+						if((position.getRows() == i) && (position.getCols() == j)){
+							e.gc.drawImage(img, 0, 0, img.getBounds().width, img.getBounds().height, x, y, w, h);
 						}else{
 							if(mazeData[i][j]!=1){
 								e.gc.fillRectangle(x,y,w,h);
@@ -90,46 +92,97 @@ public class MazeDisplay extends Canvas {
 		return false;
 	}
 	
-	public boolean isGoolPosition(){
-		return false;
-	}
-	
-	public void moveDown(){
-		Position newPosition = new Position(position.getFloor(),position.getRows(),position.getCols()+1);
-		ArrayList<Direction> directions = maze3d.getPossibleDirections(newPosition);
-		if(directions.contains(Direction.BACKWARD)){
-			position.setPosition(newPosition);
-			this.redraw();
+	public void isGoolPosition(){
+		if(position.equals(maze3d.getGoalPosition())){
+			MessageBox messageBox = new MessageBox(getShell());
+			messageBox.setText("Congratulations You won");
+			messageBox.open();
 		}
-		//this.redraw();
 	}
 	
-	public void moveUp(){
-		Position newPosition = new Position(position.getFloor(),position.getRows(),position.getCols()-1);
-		position.setPosition(newPosition);
-		this.redraw();
+	public void moveZUp(){
+		ArrayList<Direction> directions = maze3d.getPossibleDirections(position);
+		if(directions.contains(Direction.FORWARD)){
+			Position newPosition = new Position(position.getFloor(),position.getRows(),position.getCols()+1);
+			position.setPosition(newPosition);
+		}
+		
+			this.redraw();
+			isGoolPosition();
 	}
 	
-	public void moveRight(){
-		Position newPosition = new Position(position.getFloor(),position.getRows() + 1,position.getCols());
-		position.setPosition(newPosition);
+	public void moveZDown(){
+		ArrayList<Direction> directions = maze3d.getPossibleDirections(position);
+		if(directions.contains(Direction.BACKWARD)){
+			Position newPosition = new Position(position.getFloor(),position.getRows(),position.getCols()-1);
+			position.setPosition(newPosition);
+		}
 		this.redraw();
+		isGoolPosition();
 	}
 	
-	public void moveLeft(){
-		Position newPosition = new Position(position.getFloor(),position.getRows()-1,position.getCols());
-		position.setPosition(newPosition);
+	public void moveXUp(){
+		ArrayList<Direction> directions = maze3d.getPossibleDirections(position);
+		if(directions.contains(Direction.RIGHT)){
+			Position newPosition = new Position(position.getFloor(),position.getRows() + 1,position.getCols());
+			position.setPosition(newPosition);
+		}
 		this.redraw();
+		isGoolPosition();
 	}
+	
+	public void moveXDown(){
+		ArrayList<Direction> directions = maze3d.getPossibleDirections(position);
+		if(directions.contains(Direction.LEFT)){
+			Position newPosition = new Position(position.getFloor(),position.getRows()-1,position.getCols());
+			position.setPosition(newPosition);
+		}
+		this.redraw();
+		isGoolPosition();
+
+	}
+	
 	public void moveFloorDown(){
-		Position newPosition = new Position(position.getFloor() - 1 ,position.getRows(),position.getCols());
-		position.setPosition(newPosition);
+		ArrayList<Direction> directions = maze3d.getPossibleDirections(position);
+		if(directions.contains(Direction.DOWN)){
+			Position newPosition = new Position(position.getFloor() - 1 ,position.getRows(),position.getCols());
+			position.setPosition(newPosition);
+			setMazeData(maze3d.getCrossSectionByY(position.getFloor()));
+		}
 		this.redraw();
+		isGoolPosition();
+
 	}
 	
 	public void moveFloorUp(){
-		Position newPosition = new Position(position.getFloor() + 1,position.getRows(),position.getCols());
-		position.setPosition(newPosition);
+		ArrayList<Direction> directions = maze3d.getPossibleDirections(position);
+		if(directions.contains(Direction.UP)){
+			Position newPosition = new Position(position.getFloor() + 1,position.getRows(),position.getCols());
+			position.setPosition(newPosition);
+			setMazeData(maze3d.getCrossSectionByY(position.getFloor()));	
+			}
 		this.redraw();
-	}		
+		isGoolPosition();
+	}	
+	
+	public void displaySolution(){
+		maze3d.setStartPosition(position);
+		
+	}
+	
+	public String displayHint(Object o){
+		StringBuilder sb = new StringBuilder();
+		Solution sol = (Solution)o;
+		sb.append("you are here: \n");
+		sb.append(position.toString());
+		sb.append("This is the path: \n");
+		sb.append(sol.toString());
+		/*
+		MessageBox messageBox = new MessageBox(getShell());
+		messageBox.setMessage("sb");
+		messageBox.open();
+		 */
+		System.out.println(sb);
+		return sb.toString();
+	}	
 }

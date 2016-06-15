@@ -32,7 +32,6 @@ public class Run {
 		/*
 		LoadFromXml loadFromXml = new LoadFromXml();
 		Properties properties = loadFromXml.load();
-		
 		PrintWriter out= new PrintWriter(new OutputStreamWriter(System.out));
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		MyView view = new MyView(out,in);
@@ -43,19 +42,19 @@ public class Run {
 		view.getUserCommand();
 		*/
 		
-		
 		LoadFromXml loadFromXml = new LoadFromXml();
-		Properties properties = loadFromXml.load();
+		Properties properties = new Properties();
+		properties =  loadFromXml.load();
+		System.out.println(properties.toString());
 		Mymodel model = new Mymodel(properties);
 		Display display = new Display();
 		Shell shell = new Shell(display);
 		BasicWindows mainWindows = new MainWindows(display, shell);
-		Presenter presenter = new Presenter(model,mainWindows);
+		Presenter presenter = new Presenter(model,mainWindows, properties);
 		mainWindows.addObserver(presenter);
 		model.addObserver(presenter);
 		mainWindows.setObserver(presenter);
 		mainWindows.run();
-		
 	}
 
 }
