@@ -15,12 +15,13 @@ public class saveToXml {
 			Properties properties = new Properties();
 			String [] defaultMaze = {"","userName","5","5","5"};
 			properties.setDefaultMaze(defaultMaze);
-			properties.setDefaultSolve("DFS");
+			properties.setDefaultSolve("BestFS");
 			properties.setLogFilePath("C:\\Program Files\\Maze\\logs.txt");
 			properties.setProgramPath("C:\\Program Files\\Maze");
 			properties.setMaxNumOfThread(20);
 			properties.setSolutionsFilePath("C:\\Program Files\\Maze\\solutions.sol");
 			properties.setMazeGenerate("MyMaze");
+			properties.setDefaultUserInterface("GUI");
 			XMLEncoder xmlEncoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(path)));
 			xmlEncoder.writeObject(properties);
 			xmlEncoder.close();

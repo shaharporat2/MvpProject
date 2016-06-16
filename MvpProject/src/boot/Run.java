@@ -29,32 +29,33 @@ public class Run {
 		 */
 		
 		
-		/*
-		LoadFromXml loadFromXml = new LoadFromXml();
-		Properties properties = loadFromXml.load();
-		PrintWriter out= new PrintWriter(new OutputStreamWriter(System.out));
-		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		MyView view = new MyView(out,in);
-		Mymodel model = new Mymodel(properties);
-		Presenter presenter = new Presenter(model,view);
-		view.addObserver(presenter);
-		model.addObserver(presenter);
-		view.getUserCommand();
-		*/
 		
 		LoadFromXml loadFromXml = new LoadFromXml();
-		Properties properties = new Properties();
-		properties =  loadFromXml.load();
-		System.out.println(properties.toString());
-		Mymodel model = new Mymodel(properties);
-		Display display = new Display();
-		Shell shell = new Shell(display);
-		BasicWindows mainWindows = new MainWindows(display, shell);
-		Presenter presenter = new Presenter(model,mainWindows, properties);
-		mainWindows.addObserver(presenter);
-		model.addObserver(presenter);
-		mainWindows.setObserver(presenter);
-		mainWindows.run();
+		Properties properties = loadFromXml.load();
+		
+		
+		if(properties.getDefaultUserInterface().equals("CLI"))
+		{
+			PrintWriter out= new PrintWriter(new OutputStreamWriter(System.out));
+			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+			MyView view = new MyView(out,in);
+			Mymodel model = new Mymodel(properties);
+			Presenter presenter = new Presenter(model,view,properties);
+			view.addObserver(presenter);
+			model.addObserver(presenter);
+			view.getUserCommand();
+	}else{
+			properties =  loadFromXml.load();
+			System.out.println(properties.toString());
+			Mymodel model = new Mymodel(properties);
+			Display display = new Display();
+			Shell shell = new Shell(display);
+			BasicWindows mainWindows = new MainWindows(display, shell);
+			Presenter presenter = new Presenter(model,mainWindows, properties);
+			mainWindows.addObserver(presenter);
+			model.addObserver(presenter);
+			mainWindows.setObserver(presenter);
+			mainWindows.run();
+		}
 	}
-
 }

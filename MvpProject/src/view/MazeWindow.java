@@ -1,5 +1,8 @@
 package view;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
@@ -105,9 +108,36 @@ public class MazeWindow extends BasicWindows implements View{
 	}
 
 	@Override
-	public void displayMessage(Object object) {
-		String hintpath = mazeDisplay.displayHint(object);		
+	public void displayMessage(Object object) {		
+		try{
+			
+			if(mazeDisplay.prepreSolution(object))
+			{
+				Timer timer = new Timer();
+				timer.scheduleAtFixedRate(new TimerTask() {
+					
+					@Override
+					public void run() {
+						display.syncExec(new Runnable() {
+							
+							@Override
+							public void run() {
+								mazeDisplay.displayHelp();
+								mazeDisplay.redraw();
+							}
+						});
+						if(mazeDisplay.displayHelp() == true){
+							timer.cancel();
+						}
+					}
+				}, 0, 300);
+			}
+		}catch (Exception e){
+			
+		}
 	}
+	
+		
 
 	public void Listner(){
 		getShell().addKeyListener(new KeyListener() {

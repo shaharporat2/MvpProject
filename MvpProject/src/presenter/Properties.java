@@ -20,7 +20,17 @@ public class Properties implements Serializable {
 	
 	private String defaultSolve;
 	
+	private String defaultUserInterface;
 	
+	
+	public String getDefaultUserInterface() {
+		return defaultUserInterface;
+	}
+
+	public void setDefaultUserInterface(String defaultUserInterface) {
+		this.defaultUserInterface = defaultUserInterface;
+	}
+
 	public String getDefaultSolve() {
 		return defaultSolve;
 	}

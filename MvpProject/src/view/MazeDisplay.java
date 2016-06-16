@@ -1,6 +1,8 @@
 package view;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Map.Entry;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
@@ -19,6 +21,7 @@ import algorithms.mazeGenerators.Direction;
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
+import algorithms.search.State;
 
 public class MazeDisplay extends Canvas {
 	
@@ -29,6 +32,13 @@ public class MazeDisplay extends Canvas {
 	Position position;
 	
 	Image img = new Image(getDisplay(),"C:\\Program Files\\Maze\\player.jpg");
+	
+	ArrayList<State> solpath;
+	
+	LinkedList<Position> pospath;
+	
+	Solution sol;
+	
 	
 	
 	public Maze3d getMaze3d() {
@@ -170,19 +180,32 @@ public class MazeDisplay extends Canvas {
 		
 	}
 	
-	public String displayHint(Object o){
-		StringBuilder sb = new StringBuilder();
-		Solution sol = (Solution)o;
-		sb.append("you are here: \n");
-		sb.append(position.toString());
-		sb.append("This is the path: \n");
-		sb.append(sol.toString());
-		/*
-		MessageBox messageBox = new MessageBox(getShell());
-		messageBox.setMessage("sb");
-		messageBox.open();
-		 */
-		System.out.println(sb);
-		return sb.toString();
-	}	
+	public boolean prepreSolution(Object o){
+		sol = (Solution)o;
+		String [] cord;
+		ArrayList<State >solpath = new ArrayList<>();
+		pospath = new LinkedList<>();
+		solpath = sol.getStates();
+		for(State state : solpath ){
+			cord = state.getDescription().split("");
+			String floor = cord[1];
+			String rows = cord[3];
+			String cols = cord[5];
+			Position solvposition = new Position(Integer.parseInt(floor),Integer.parseInt(rows),Integer.parseInt(cols));
+			pospath.addLast(solvposition);
+		}
+		return true;
+	}
+	public boolean displayHelp(){
+		if(pospath.isEmpty()){
+			return true;
+		}else{
+			position = pospath.getFirst();
+			pospath.removeFirst();
+			return false;
+		}
+	}
+	
+	
 }
+	

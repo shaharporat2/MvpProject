@@ -102,9 +102,14 @@ public class MainWindows extends BasicWindows implements View, Runnable {
 			
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				LoadFromXml loadFromXml = new LoadFromXml();
-				Properties properties = loadFromXml.load();
-				System.out.println(properties.toString());
+				getShell().dispose();
+				getDisplay().dispose();
+				Display configurationDisplay = new Display();
+				Shell configurationshell = new Shell(configurationDisplay);
+				ConfigurationWindow configurationWindow = new ConfigurationWindow(configurationDisplay, configurationshell);
+				configurationWindow.addObserver(getObserver());
+				configurationWindow.setObserver(getObserver());
+				configurationWindow.run();
 			}
 			
 			@Override

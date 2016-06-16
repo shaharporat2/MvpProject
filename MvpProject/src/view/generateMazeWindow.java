@@ -93,9 +93,12 @@ public class generateMazeWindow extends BasicWindows {
 			public void widgetSelected(SelectionEvent e) {
 				if(defaulti.getSelection() == true)
 				{
-					String[] parameter = new String[2];
+					String[] parameter = new String[5];
 					parameter[0] = "generate_maze_3d";
 					parameter[1] = "useDe";
+					parameter[2] = " ";
+					parameter[3] = " ";
+					parameter[4] = " ";
 					setChanged();
 					notifyObservers(parameter);
 					
