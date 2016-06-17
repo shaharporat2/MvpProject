@@ -11,6 +11,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Map.Entry;
 import java.util.concurrent.ExecutorService;
@@ -405,57 +406,105 @@ public class Mymodel extends Observable implements Model {
 	}
 
 	@Override
-	public void SaveConfiguration(String[] args) {
+	public void SaveConfiguration(LinkedList<String> args) {
+		boolean success = true;
 		String output;
 		try{
-			for(int i = 1; i < 16; i = i+2){
-				switch (args[i]) {
-				case "maxNumOfThread":
-					int maxNumOfThread = Integer.parseInt(args[i+1]);
+			while(!args.isEmpty()){
+				switch (args.getFirst()) {
+				case "-maxNumOfThread":
+					args.removeFirst();
+					int maxNumOfThread = Integer.parseInt(args.getFirst());
 					properties.setMaxNumOfThread(maxNumOfThread);
+					args.removeFirst();
 					break;
-				case "solutionsFilePath":
+				case "-solutionsFilePath":
+					
 					break;
-				case "LogFilePath":
+				case "-LogFilePath":
 					break;
-				case "mazeGenerate":
-					break;
-				case "ProgramPath":
-					break;
-				case "defaultSolve":
-					break;
-				case "-defaultUserInterface":
-					if(args[i+1].equals("CLI")){
-						properties.setDefaultUserInterface("CLI");
-					}else if(args[i+1].equals("GUI")){
-						properties.setDefaultUserInterface("GUI");
+				case "-mazeGenerate":
+					args.removeFirst();
+					if(args.getFirst().equals("MyMaze")){
+						properties.setMazeGenerate("MyMaze");
+					}else if (args.getFirst().equals("SimpleMAze")){
+						properties.setMazeGenerate("SimpleMaze");
 					}else{
+						success = false;
 						throw new Exception();
 					}
+					args.removeFirst();
+					break;
+				case "-ProgramPath":
+					args.removeFirst();
+					File file = new File(args.getFirst());
+					if(file.exists()){
+						System.out.println(args.getFirst());
+					}
+					else{
+						success = false;
+						throw new Exception();
+					}
+					args.removeFirst();
+					break;
+				case "-defaultSolve":
+					args.removeFirst();
+					if(args.getFirst().equals("DFS")){
+						properties.setDefaultSolve("DFS");
+					}else if(args.getFirst().equals("BestFS")){
+						properties.setDefaultSolve("BestFS");
+					}else if(args.getFirst().equals("BreathFS")){
+						properties.setDefaultSolve("BreathFS");
+					}else{
+						success = false;
+						throw new Exception();
+					}
+					args.removeFirst();
+					break;
+				case "-defaultUserInterface":
+					args.removeFirst();
+					if(args.getFirst().equals("CLI")){
+						properties.setDefaultUserInterface("CLI");
+					}else if(args.getFirst().equals("GUI")){
+						properties.setDefaultUserInterface("GUI");
+					}else{
+						success = false;
+						throw new Exception();
+					}
+					args.removeFirst();
 					break;
 				default:
+					args.clear();
+					success = false;
 					break;
 				}
 			}
 		}catch (Exception e){
-			 output = "You entered envalid arguments\n";
-			 setChanged();
-			 notifyObservers(output);
+			args.clear();
+			success = false;
+			output = "You entered invalid arguments\n";
+			setChanged();
+			notifyObservers(output);
 		}
 		try{
-			String path = "C:\\Program Files\\Maze\\properties1.xml";
-			XMLEncoder xmlEncoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(path)));
-			xmlEncoder.writeObject(properties);
-			xmlEncoder.close();
-			output = "XML File has been change please restart the program\n";
+			if(success){
+				String path = "C:\\Program Files\\Maze\\properties1.xml";
+				XMLEncoder xmlEncoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(path)));
+				xmlEncoder.writeObject(properties);
+				xmlEncoder.close();
+			}
 		}catch(Exception e){
-			 output = "Error saving to file";
+			 success = false;
+			 output = "Error saving to file\n";
 			 setChanged();
 			 notifyObservers(output);
 		}
-		 output = "Configuration saved";
-		 setChanged();
-		 notifyObservers(output);
+		
+		if(success){
+			output = "XML File has been change please restart the program\n";
+			setChanged();
+			notifyObservers(output);
+		}
 	}
 }
 

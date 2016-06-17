@@ -1,5 +1,7 @@
 package model;
 
+import java.util.LinkedList;
+
 public interface Model {
 	void dir(String path);
 	void generateMaze3D(String name,int floor,int rows,int cols);
@@ -13,6 +15,6 @@ public interface Model {
 	void displaySolution(String name);
 	void zipAndSaveSolutions(String path);
 	void unzipAndLoadSolution(String path);
-	void SaveConfiguration(String [] args);
+	void SaveConfiguration(LinkedList<String> args);
 	void exit();
 }
