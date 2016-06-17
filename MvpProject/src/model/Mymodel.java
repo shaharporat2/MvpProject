@@ -1,5 +1,7 @@
 package model;
 
+import java.beans.XMLEncoder;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -29,6 +31,9 @@ import model.Model;
 import presenter.Properties;
 
 import java.util.zip.GZIPOutputStream;
+
+import org.eclipse.swt.internal.win32.MSG;
+
 import java.util.zip.GZIPInputStream;
 
 
@@ -397,6 +402,60 @@ public class Mymodel extends Observable implements Model {
 		}catch(Exception e){
 			output = "Error While loading maze solutions\n";
 		}
+	}
+
+	@Override
+	public void SaveConfiguration(String[] args) {
+		String output;
+		try{
+			for(int i = 1; i < 16; i = i+2){
+				switch (args[i]) {
+				case "maxNumOfThread":
+					int maxNumOfThread = Integer.parseInt(args[i+1]);
+					properties.setMaxNumOfThread(maxNumOfThread);
+					break;
+				case "solutionsFilePath":
+					break;
+				case "LogFilePath":
+					break;
+				case "mazeGenerate":
+					break;
+				case "ProgramPath":
+					break;
+				case "defaultSolve":
+					break;
+				case "-defaultUserInterface":
+					if(args[i+1].equals("CLI")){
+						properties.setDefaultUserInterface("CLI");
+					}else if(args[i+1].equals("GUI")){
+						properties.setDefaultUserInterface("GUI");
+					}else{
+						throw new Exception();
+					}
+					break;
+				default:
+					break;
+				}
+			}
+		}catch (Exception e){
+			 output = "You entered envalid arguments\n";
+			 setChanged();
+			 notifyObservers(output);
+		}
+		try{
+			String path = "C:\\Program Files\\Maze\\properties1.xml";
+			XMLEncoder xmlEncoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(path)));
+			xmlEncoder.writeObject(properties);
+			xmlEncoder.close();
+			output = "XML File has been change please restart the program\n";
+		}catch(Exception e){
+			 output = "Error saving to file";
+			 setChanged();
+			 notifyObservers(output);
+		}
+		 output = "Configuration saved";
+		 setChanged();
+		 notifyObservers(output);
 	}
 }
 

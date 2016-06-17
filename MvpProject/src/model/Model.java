@@ -13,5 +13,6 @@ public interface Model {
 	void displaySolution(String name);
 	void zipAndSaveSolutions(String path);
 	void unzipAndLoadSolution(String path);
+	void SaveConfiguration(String [] args);
 	void exit();
 }

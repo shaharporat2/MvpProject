@@ -45,6 +45,8 @@ public class Presenter implements Observer {
 			Solve solve = new Solve(model, view);
 			DisplaySolution displaySolution = new DisplaySolution(model, view);
 			EXIT exit = new EXIT(model, view);
+			SaveConfiguration saveConfiguration = new SaveConfiguration(model, view);
+			commands.put("save_configuration",saveConfiguration);
 			commands.put("exit",exit);
 			commands.put("display_solution",displaySolution);
 			commands.put("solve",solve);
