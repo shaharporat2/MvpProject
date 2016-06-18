@@ -37,7 +37,7 @@ public class MazeDisplay extends Canvas {
 	Position position;
 	
 	//Image img = new Image(getDisplay(),"C:\\Program Files\\Maze\\player.jpg");
-	Image img = new Image(getDisplay(),"imges/player.jpg");
+	Image img = new Image(getDisplay(),"src/imges/player.jpg");
 	
 	ArrayList<State> solpath;
 	

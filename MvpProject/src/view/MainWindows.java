@@ -48,7 +48,9 @@ public class MainWindows extends BasicWindows implements View, Runnable {
 	
 	private void loadImage(Shell shell){
 		
-		mazeImg = new Image(getDisplay(),"C:\\Program Files\\Maze\\MazeRunner.jpg");
+		mazeImg = new Image(getDisplay(),"src/imges/MazeRunner.jpg");
+		
+		//mazeImg = new Image(getDisplay(),"C:\\Program Files\\Maze\\MazeRunner.jpg");
 		/*
 		Utils util = new Utils();
 		 String resource = util.getClass().getResource("MazeRunner.jpg").getPath();

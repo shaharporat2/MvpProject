@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_74" class="java.beans.XMLDecoder">
+ <object class="presenter.Properties">
+  <void property="defaultMaze">
+   <array class="java.lang.String" length="5">
+    <void index="0">
+     <string></string>
+    </void>
+    <void index="1">
+     <string>userName</string>
+    </void>
+    <void index="2">
+     <string>5</string>
+    </void>
+    <void index="3">
+     <string>5</string>
+    </void>
+    <void index="4">
+     <string>5</string>
+    </void>
+   </array>
+  </void>
+  <void property="defaultSolve">
+   <string>BestFS</string>
+  </void>
+  <void property="defaultUserInterface">
+   <string>GUI</string>
+  </void>
+  <void property="logFilePath">
+   <string>C:\Program Files\Maze\logs.txt</string>
+  </void>
+  <void property="maxNumOfThread">
+   <int>15</int>
+  </void>
+  <void property="mazeGenerate">
+   <string>MyMaze</string>
+  </void>
+  <void property="programPath">
+   <string>C:\Program Files\Maze</string>
+  </void>
+  <void property="solutionsFilePath">
+   <string>C:\Program Files\Maze\solutions.sol</string>
+  </void>
+ </object>
+</java>

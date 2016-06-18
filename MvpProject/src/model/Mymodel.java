@@ -527,7 +527,7 @@ public class Mymodel extends Observable implements Model {
 			}
 			try{
 				if(success){
-					String path = "C:\\Program Files\\Maze\\properties1.xml";
+					String path = "src/properties/properties1.xml";
 					XMLEncoder xmlEncoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(path)));
 					xmlEncoder.writeObject(properties);
 					xmlEncoder.close();
