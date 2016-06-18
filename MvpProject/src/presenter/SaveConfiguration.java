@@ -18,7 +18,7 @@ public class SaveConfiguration extends AbstractCommand {
 			args.addLast(param[0]);
 			getModel().SaveConfiguration(args);
 		}
-		if(param.length == 3){
+		else if(param.length == 3){
 			LinkedList<String> args = new LinkedList<>();
 			args.addLast(param[1]);
 			args.addLast(param[2]);

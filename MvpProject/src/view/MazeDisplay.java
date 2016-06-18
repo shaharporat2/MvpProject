@@ -15,6 +15,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 
@@ -92,7 +93,6 @@ public class MazeDisplay extends Canvas {
 						if((position.getRows() == maze3d.getRows()) && (position.getCols() == maze3d.getCols()) && (position.getFloor() == maze3d.getFloor())){
 							isGoolPosition();
 							loadImage(getShell());
-							e.gc.drawImage(fire, 0, 0, fire.getBounds().width, img.getBounds().height, x, y, w, h);
 						}
 						else if((position.getRows() == i) && (position.getCols() == j)){
 							e.gc.drawImage(img, 0, 0, img.getBounds().width, img.getBounds().height, x, y, w, h);

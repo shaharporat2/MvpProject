@@ -5,7 +5,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
-import javax.swing.plaf.basic.BasicArrowButton;
 
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -27,9 +26,6 @@ public class Run {
 		/**
 		 * 
 		 */
-		
-		
-		
 		LoadFromXml loadFromXml = new LoadFromXml();
 		Properties properties = loadFromXml.load();
 		
@@ -45,6 +41,7 @@ public class Run {
 			model.addObserver(presenter);
 			view.getUserCommand();
 	}else{
+			String s = new String();
 			properties =  loadFromXml.load();
 			System.out.println(properties.toString());
 			Mymodel model = new Mymodel(properties);
