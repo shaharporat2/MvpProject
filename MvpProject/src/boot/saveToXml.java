@@ -21,7 +21,7 @@ public class saveToXml {
 			properties.setMaxNumOfThread(20);
 			properties.setSolutionsFilePath("C:\\Program Files\\Maze\\solutions.sol");
 			properties.setMazeGenerate("MyMaze");
-			properties.setDefaultUserInterface("CLI");
+			properties.setDefaultUserInterface("GUI");
 			XMLEncoder xmlEncoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(path)));
 			xmlEncoder.writeObject(properties);
 			xmlEncoder.close();

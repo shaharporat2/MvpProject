@@ -419,10 +419,30 @@ public class Mymodel extends Observable implements Model {
 					args.removeFirst();
 					break;
 				case "-solutionsFilePath":
+					args.removeFirst();
+					File file = new File(args.getFirst());
+					if(file.exists()){
+						properties.setSolutionsFilePath(args.getFirst());;
+					}
+					else{
+						success = false;
+						throw new Exception();
+					}
+					args.removeFirst();
 					
 					break;
 				case "-LogFilePath":
-					break;
+					args.removeFirst();
+					File file1 = new File(args.getFirst());
+					if(file1.exists()){
+						properties.setLogFilePath(args.getFirst());
+					}
+					else{
+						success = false;
+						throw new Exception();
+					}
+					args.removeFirst();
+					break;				
 				case "-mazeGenerate":
 					args.removeFirst();
 					if(args.getFirst().equals("MyMaze")){
@@ -437,9 +457,9 @@ public class Mymodel extends Observable implements Model {
 					break;
 				case "-ProgramPath":
 					args.removeFirst();
-					File file = new File(args.getFirst());
-					if(file.exists()){
-						System.out.println(args.getFirst());
+					File file2 = new File(args.getFirst());
+					if(file2.exists()){
+						properties.setProgramPath(args.getFirst());
 					}
 					else{
 						success = false;

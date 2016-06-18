@@ -16,7 +16,9 @@ import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Shell;
 
+import Utils.Utils;
 import algorithms.mazeGenerators.Direction;
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
@@ -25,6 +27,8 @@ import algorithms.search.State;
 
 public class MazeDisplay extends Canvas {
 	
+	
+	Image fire;
 	Maze3d maze3d;
 	
 	int [][] mazeData;
@@ -85,6 +89,7 @@ public class MazeDisplay extends Canvas {
 					for(int j=0;j<mazeData[i].length;j++){
 						int x=j*w;
 						int y=i*h;
+						
 						if((position.getRows() == i) && (position.getCols() == j)){
 							e.gc.drawImage(img, 0, 0, img.getBounds().width, img.getBounds().height, x, y, w, h);
 						}else{
@@ -107,6 +112,8 @@ public class MazeDisplay extends Canvas {
 			MessageBox messageBox = new MessageBox(getShell());
 			messageBox.setText("Congratulations You won");
 			messageBox.open();
+			loadImage(getShell());
+			
 		}
 	}
 	
@@ -203,6 +210,16 @@ public class MazeDisplay extends Canvas {
 			position = pospath.getFirst();
 			pospath.removeFirst();
 			return false;
+		}
+	}
+	
+	private void loadImage(Shell shell){
+		Utils util = new Utils();
+		 String resource = util.getClass().getResource("firework03.gif").getPath();
+		try{
+			fire = new Image(getDisplay(), resource);
+		}catch(Exception e){
+			System.out.println("Error loading pic");
 		}
 	}
 	

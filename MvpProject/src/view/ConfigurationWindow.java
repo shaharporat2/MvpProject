@@ -1,5 +1,7 @@
 package view;
 
+import java.util.LinkedList;
+
 import javax.xml.bind.Marshaller.Listener;
 
 import org.eclipse.swt.SWT;
@@ -42,11 +44,10 @@ public class ConfigurationWindow extends BasicWindows implements View{
 		Text MaxNumOfThread=new Text(group, SWT.BORDER);
 		new Label(group, SWT.NONE).setText("Default User interface: ");
 		Text DefaultUserInterface=new Text(group, SWT.BORDER);
-		new Label(group, SWT.NONE).setText("Default Maze generator: ");
-		Text MazeGenerate=new Text(group, SWT.BORDER);
+		//new Label(group, SWT.NONE).setText("Default Maze generator: ");
+		//Text MazeGenerate=new Text(group, SWT.BORDER);
 		
-		Button defaulti =new Button(group, SWT.CHECK);
-		defaulti.setText("use default");
+
 		Button submit=new Button(group,SWT.PUSH);
 		submit.setText("Submit change");
 		
@@ -55,25 +56,101 @@ public class ConfigurationWindow extends BasicWindows implements View{
 			
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				MessageBox messageBox = new MessageBox(getShell(),SWT.ICON_WARNING | SWT.YES | SWT.CANCEL);
+				MessageBox messageBox = new MessageBox(getShell(),SWT.ICON_WARNING | SWT.YES | SWT.NO);
 				messageBox.setText("Changing configuration warning");
 				messageBox.setMessage("Changing system configuration may cause problem are you you want to continue?");
 				int choose = messageBox.open();
 				switch (choose) {
 				case SWT.YES:
-				case SWT.NO:
-					break;
-				default:
-					break;
+					
+					String[] string=new String[7];
+					string[0]=DefaultSolve.getText();
+					string[1]=LogFilePath.getText();
+					string[2]=ProgramPath.getText();
+					string[3]=SolutionsFilePath.getText();
+					string[4]=MaxNumOfThread.getText();
+					string[5]=DefaultUserInterface.getText();
+					
+					String[] parameters=new String[13];
+					int i=1;
+					parameters[0]="save_configuration";	
+					
+						if(!string[0].isEmpty()){
+							parameters[i]="-defaultSolve";
+							i++;
+							parameters[i]=string[0];
+							i++;
+						}
+						if(!string[1].isEmpty()){
+							parameters[i]="-LogFilePath";
+							i++;
+							parameters[i]=string[1];
+							i++;
+						}
+						if(!string[2].isEmpty()){
+							parameters[i]="-ProgramPath";
+							i++;
+							parameters[i]=string[2];
+							i++;
+						}
+						if(!string[3].isEmpty()){
+							parameters[i]="-solutionsFilePath";
+							i++;
+							parameters[i]=string[3];
+							i++;
+						}
+						if(!string[4].isEmpty()){
+							parameters[i]="-maxNumOfThread";
+							i++;
+							parameters[i]=string[4];
+							i++;
+						}						
+						if(!string[5].isEmpty()){
+							parameters[i]="-defaultUserInterface";
+							i++;
+							parameters[i]=string[5];
+							i++;
+						}
+						
+					String[] s=new String[i];
+					for (int j = 0; j < i; j++) {
+						s[j]=parameters[j];
+					}
+
+					setChanged();
+					notifyObservers(s);
+	
+						
+					case SWT.NO:
+						break;
+					default:
+						break;
 				}
+
 			}
 			
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
 				
 			}
 		});
 		
+		
+		
+	}
+
+	@Override
+	public void displayMessage(String msg) {
+		if(msg.contains("XML File has been change")){
+			MessageBox messageBox = new MessageBox(getShell());
+			messageBox.setMessage(msg);
+			messageBox.setText("Configuration change");
+			messageBox.open();
+		}else{
+			MessageBox messageBox = new MessageBox(getShell(),SWT.ICON_ERROR);
+			messageBox.setMessage(msg);
+			messageBox.setText("Configuration change");
+			messageBox.open();
+		}
 	}
 }

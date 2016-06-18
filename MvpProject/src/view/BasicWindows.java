@@ -48,6 +48,9 @@ abstract public class BasicWindows extends Observable implements Runnable, View 
 				display.sleep();
 			}
 		}
+		BuildingCommand("exit");
+		setChanged();
+		notifyObservers(getPharseCommand());
 		display.dispose();
 	}
 
