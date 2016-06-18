@@ -47,6 +47,9 @@ public class MainWindows extends BasicWindows implements View, Runnable {
 	}
 	
 	private void loadImage(Shell shell){
+		
+		mazeImg = new Image(getDisplay(),"C:\\Program Files\\Maze\\MazeRunner.jpg");
+		/*
 		Utils util = new Utils();
 		 String resource = util.getClass().getResource("MazeRunner.jpg").getPath();
 		try{
@@ -54,6 +57,7 @@ public class MainWindows extends BasicWindows implements View, Runnable {
 		}catch(Exception e){
 			System.out.println("Error loading pic");
 		}
+		*/
 	}
 	
 	

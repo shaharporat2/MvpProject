@@ -36,7 +36,8 @@ public class MazeDisplay extends Canvas {
 	
 	Position position;
 	
-	Image img = new Image(getDisplay(),"C:\\Program Files\\Maze\\player.jpg");
+	//Image img = new Image(getDisplay(),"C:\\Program Files\\Maze\\player.jpg");
+	Image img = new Image(getDisplay(),"imges/player.jpg");
 	
 	ArrayList<State> solpath;
 	
@@ -92,7 +93,7 @@ public class MazeDisplay extends Canvas {
 						int y=i*h;
 						if((position.getRows() == maze3d.getRows()) && (position.getCols() == maze3d.getCols()) && (position.getFloor() == maze3d.getFloor())){
 							isGoolPosition();
-							loadImage(getShell());
+							//loadImage(getShell());
 						}
 						else if((position.getRows() == i) && (position.getCols() == j)){
 							e.gc.drawImage(img, 0, 0, img.getBounds().width, img.getBounds().height, x, y, w, h);
@@ -116,9 +117,7 @@ public class MazeDisplay extends Canvas {
 			MessageBox messageBox = new MessageBox(getShell());
 			messageBox.setText("Congratulations");
 			messageBox.setMessage("Congratulations You won");
-			messageBox.open();
-			loadImage(getShell());
-			
+			messageBox.open();			
 		}
 	}
 	
