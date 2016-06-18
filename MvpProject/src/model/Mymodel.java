@@ -334,13 +334,26 @@ public class Mymodel extends Observable implements Model {
 	
 	@Override
 	public void displaySolution(String name) {
+		if(caching.get(mazeHash.get(name)) == null){
+			output = "Solution does not exists \n";
+			setChanged();
+			notifyObservers(output);
+		}
+		/*
 		if (mazeSol.get(name) == null) {
 			output = "Solution does not exists \n";
 			setChanged();
 			notifyObservers(output);
-		} else {
+		*/
+		else {
+			/*
 			Solution sol = new Solution();
 			sol = mazeSol.get(name);
+			setChanged();
+			notifyObservers(sol);
+			*/
+			Solution sol = new Solution();
+			sol = caching.get(mazeHash.get(name));
 			setChanged();
 			notifyObservers(sol);
 		}	
@@ -365,8 +378,8 @@ public class Mymodel extends Observable implements Model {
 	}
 
 	
-	public void setMazeSol(HashMap<String, Solution> sol){
-		this.mazeSol = sol;
+	public void setMazeSol(HashMap<Maze3d, Solution> sol){
+		this.caching = sol;
 	}
 	
 	@Override
@@ -375,7 +388,7 @@ public class Mymodel extends Observable implements Model {
 			output = "There is no solutions to save\n";
 		}
 		else{
-			MazeSolution mazeSolution = new MazeSolution(mazeSol);
+			MazeSolution mazeSolution = new MazeSolution(caching,mazeHash);
 			try{
 				GZIPOutputStream fileOut = new GZIPOutputStream(new FileOutputStream(path));
 				files.put(path,fileOut);
@@ -400,6 +413,7 @@ public class Mymodel extends Observable implements Model {
 			in.close();
 			fileIn.close();
 			setMazeSol(mazeSolution.getMazeSol());
+			mazeHash = mazeSolution.getMazes();
 		}catch(Exception e){
 			output = "Error While loading maze solutions\n";
 		}

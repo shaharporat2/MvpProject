@@ -1,5 +1,6 @@
 package algorithms.mazeGenerators;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +14,23 @@ import org.omg.CORBA.FREE_MEM;
  * @throws non
  * Description: This is Class that holds a Maze3d parameters  
  */
-public class Maze3d {
+public class Maze3d implements Serializable {
+	public Random getRand() {
+		return rand;
+	}
+
+	public void setRand(Random rand) {
+		this.rand = rand;
+	}
+
+	public static int getWall() {
+		return WALL;
+	}
+
+	public static int getFree() {
+		return FREE;
+	}
+
 	private int rows;
 	private int cols;
 	private int floor;
@@ -27,6 +44,10 @@ public class Maze3d {
 	
 	public static final int WALL = 1;
 	public static final int FREE = 0;
+	
+	public Maze3d(){
+		
+	}
 	
 	public Maze3d(int floor, int rows,int cols) {
 		

@@ -27,7 +27,7 @@ public class ConfigurationWindow extends BasicWindows implements View{
 	@Override
 	void initWidgets() {
 		getShell().setSize(350,290);
-S		getShell().setLayout(new FillLayout());
+		getShell().setLayout(new FillLayout());
 		Group group = new Group(getShell(),SWT.FILL);
 		group.setLayoutData(new GridData(SWT.FILL,SWT.FILL,true,true));
 		group.setLayout(new GridLayout(2,true));
