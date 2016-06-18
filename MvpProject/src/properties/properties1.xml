@@ -24,7 +24,7 @@
    <string>BestFS</string>
   </void>
   <void property="defaultUserInterface">
-   <string>GUI</string>
+   <string>CLI</string>
   </void>
   <void property="logFilePath">
    <string>C:\Program Files\Maze\logs.txt</string>

@@ -25,6 +25,7 @@ import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 import algorithms.search.State;
+import images.images;
 
 public class MazeDisplay extends Canvas {
 	
@@ -36,8 +37,12 @@ public class MazeDisplay extends Canvas {
 	
 	Position position;
 	
-	//Image img = new Image(getDisplay(),"C:\\Program Files\\Maze\\player.jpg");
-	Image img = new Image(getDisplay(),"src/imges/player.jpg");
+	Image img = new Image(getDisplay(),images.class.getResourceAsStream("player.jpg"));
+
+	//Image img = new Image(getDisplay(),"C:\\Program Files\\Maze\\Pic\\player.jpg");
+	//String imgPath = "MvpProject/images/player.jpg";
+	
+	//Image img = new Image(getDisplay(),getClass().getResourceAsStream(imgPath));
 	
 	ArrayList<State> solpath;
 	

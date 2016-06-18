@@ -20,6 +20,7 @@ import org.eclipse.swt.widgets.*;
 import Utils.Utils;
 import algorithms.mazeGenerators.Maze3d;
 import boot.LoadFromXml;
+import images.images;
 import presenter.Properties;
 
 public class MainWindows extends BasicWindows implements View, Runnable {
@@ -48,9 +49,12 @@ public class MainWindows extends BasicWindows implements View, Runnable {
 	
 	private void loadImage(Shell shell){
 		
-		mazeImg = new Image(getDisplay(),"src/imges/MazeRunner.jpg");
 		
-		//mazeImg = new Image(getDisplay(),"C:\\Program Files\\Maze\\MazeRunner.jpg");
+		
+		mazeImg = new Image(getDisplay(),images.class.getResourceAsStream("MazeRunner.jpg"));
+		
+		//mazeImg = new Image(getDisplay(),"C:\\Program Files\\Maze\\Pic\\MazeRunner.jpg");
+		
 		/*
 		Utils util = new Utils();
 		 String resource = util.getClass().getResource("MazeRunner.jpg").getPath();
