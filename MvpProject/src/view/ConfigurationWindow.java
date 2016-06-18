@@ -26,7 +26,8 @@ public class ConfigurationWindow extends BasicWindows implements View{
 
 	@Override
 	void initWidgets() {
-		getShell().setLayout(new FillLayout());
+		getShell().setSize(350,290);
+S		getShell().setLayout(new FillLayout());
 		Group group = new Group(getShell(),SWT.FILL);
 		group.setLayoutData(new GridData(SWT.FILL,SWT.FILL,true,true));
 		group.setLayout(new GridLayout(2,true));
@@ -141,7 +142,10 @@ public class ConfigurationWindow extends BasicWindows implements View{
 
 	@Override
 	public void displayMessage(String msg) {
-		if(msg.contains("XML File has been change")){
+		if(msg.contains("exit")){
+			
+		}
+		else if(msg.contains("XML File has been change")){
 			MessageBox messageBox = new MessageBox(getShell());
 			messageBox.setMessage(msg);
 			messageBox.setText("Configuration change");

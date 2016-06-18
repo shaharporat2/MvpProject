@@ -89,8 +89,12 @@ public class MazeDisplay extends Canvas {
 					for(int j=0;j<mazeData[i].length;j++){
 						int x=j*w;
 						int y=i*h;
-						
-						if((position.getRows() == i) && (position.getCols() == j)){
+						if((position.getRows() == maze3d.getRows()) && (position.getCols() == maze3d.getCols()) && (position.getFloor() == maze3d.getFloor())){
+							isGoolPosition();
+							loadImage(getShell());
+							e.gc.drawImage(fire, 0, 0, fire.getBounds().width, img.getBounds().height, x, y, w, h);
+						}
+						else if((position.getRows() == i) && (position.getCols() == j)){
 							e.gc.drawImage(img, 0, 0, img.getBounds().width, img.getBounds().height, x, y, w, h);
 						}else{
 							if(mazeData[i][j]!=1){
@@ -110,7 +114,8 @@ public class MazeDisplay extends Canvas {
 	public void isGoolPosition(){
 		if(position.equals(maze3d.getGoalPosition())){
 			MessageBox messageBox = new MessageBox(getShell());
-			messageBox.setText("Congratulations You won");
+			messageBox.setText("Congratulations");
+			messageBox.setMessage("Congratulations You won");
 			messageBox.open();
 			loadImage(getShell());
 			

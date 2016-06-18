@@ -409,121 +409,127 @@ public class Mymodel extends Observable implements Model {
 	public void SaveConfiguration(LinkedList<String> args) {
 		boolean success = true;
 		String output;
-		try{
-			while(!args.isEmpty()){
-				switch (args.getFirst()) {
-				case "-maxNumOfThread":
-					args.removeFirst();
-					int maxNumOfThread = Integer.parseInt(args.getFirst());
-					properties.setMaxNumOfThread(maxNumOfThread);
-					args.removeFirst();
-					break;
-				case "-solutionsFilePath":
-					args.removeFirst();
-					File file = new File(args.getFirst());
-					if(file.exists()){
-						properties.setSolutionsFilePath(args.getFirst());;
-					}
-					else{
+		if(args.getFirst().equals("exit")){
+			output = "exit";
+			setChanged();
+			notifyObservers(output);
+		}else{
+			try{
+				while(!args.isEmpty()){
+					switch (args.getFirst()) {
+					case "-maxNumOfThread":
+						args.removeFirst();
+						int maxNumOfThread = Integer.parseInt(args.getFirst());
+						properties.setMaxNumOfThread(maxNumOfThread);
+						args.removeFirst();
+						break;
+					case "-solutionsFilePath":
+						args.removeFirst();
+						File file = new File(args.getFirst());
+						if(file.exists()){
+							properties.setSolutionsFilePath(args.getFirst());;
+						}
+						else{
+							success = false;
+							throw new Exception();
+						}
+						args.removeFirst();
+						
+						break;
+					case "-LogFilePath":
+						args.removeFirst();
+						File file1 = new File(args.getFirst());
+						if(file1.exists()){
+							properties.setLogFilePath(args.getFirst());
+						}
+						else{
+							success = false;
+							throw new Exception();
+						}
+						args.removeFirst();
+						break;				
+					case "-mazeGenerate":
+						args.removeFirst();
+						if(args.getFirst().equals("MyMaze")){
+							properties.setMazeGenerate("MyMaze");
+						}else if (args.getFirst().equals("SimpleMAze")){
+							properties.setMazeGenerate("SimpleMaze");
+						}else{
+							success = false;
+							throw new Exception();
+						}
+						args.removeFirst();
+						break;
+					case "-ProgramPath":
+						args.removeFirst();
+						File file2 = new File(args.getFirst());
+						if(file2.exists()){
+							properties.setProgramPath(args.getFirst());
+						}
+						else{
+							success = false;
+							throw new Exception();
+						}
+						args.removeFirst();
+						break;
+					case "-defaultSolve":
+						args.removeFirst();
+						if(args.getFirst().equals("DFS")){
+							properties.setDefaultSolve("DFS");
+						}else if(args.getFirst().equals("BestFS")){
+							properties.setDefaultSolve("BestFS");
+						}else if(args.getFirst().equals("BreathFS")){
+							properties.setDefaultSolve("BreathFS");
+						}else{
+							success = false;
+							throw new Exception();
+						}
+						args.removeFirst();
+						break;
+					case "-defaultUserInterface":
+						args.removeFirst();
+						if(args.getFirst().equals("CLI")){
+							properties.setDefaultUserInterface("CLI");
+						}else if(args.getFirst().equals("GUI")){
+							properties.setDefaultUserInterface("GUI");
+						}else{
+							success = false;
+							throw new Exception();
+						}
+						args.removeFirst();
+						break;
+					default:
+						args.clear();
 						success = false;
-						throw new Exception();
+						break;
 					}
-					args.removeFirst();
-					
-					break;
-				case "-LogFilePath":
-					args.removeFirst();
-					File file1 = new File(args.getFirst());
-					if(file1.exists()){
-						properties.setLogFilePath(args.getFirst());
-					}
-					else{
-						success = false;
-						throw new Exception();
-					}
-					args.removeFirst();
-					break;				
-				case "-mazeGenerate":
-					args.removeFirst();
-					if(args.getFirst().equals("MyMaze")){
-						properties.setMazeGenerate("MyMaze");
-					}else if (args.getFirst().equals("SimpleMAze")){
-						properties.setMazeGenerate("SimpleMaze");
-					}else{
-						success = false;
-						throw new Exception();
-					}
-					args.removeFirst();
-					break;
-				case "-ProgramPath":
-					args.removeFirst();
-					File file2 = new File(args.getFirst());
-					if(file2.exists()){
-						properties.setProgramPath(args.getFirst());
-					}
-					else{
-						success = false;
-						throw new Exception();
-					}
-					args.removeFirst();
-					break;
-				case "-defaultSolve":
-					args.removeFirst();
-					if(args.getFirst().equals("DFS")){
-						properties.setDefaultSolve("DFS");
-					}else if(args.getFirst().equals("BestFS")){
-						properties.setDefaultSolve("BestFS");
-					}else if(args.getFirst().equals("BreathFS")){
-						properties.setDefaultSolve("BreathFS");
-					}else{
-						success = false;
-						throw new Exception();
-					}
-					args.removeFirst();
-					break;
-				case "-defaultUserInterface":
-					args.removeFirst();
-					if(args.getFirst().equals("CLI")){
-						properties.setDefaultUserInterface("CLI");
-					}else if(args.getFirst().equals("GUI")){
-						properties.setDefaultUserInterface("GUI");
-					}else{
-						success = false;
-						throw new Exception();
-					}
-					args.removeFirst();
-					break;
-				default:
-					args.clear();
-					success = false;
-					break;
 				}
+			}catch (Exception e){
+				args.clear();
+				success = false;
+				output = "You entered invalid arguments\n";
+				setChanged();
+				notifyObservers(output);
 			}
-		}catch (Exception e){
-			args.clear();
-			success = false;
-			output = "You entered invalid arguments\n";
-			setChanged();
-			notifyObservers(output);
-		}
-		try{
+			try{
+				if(success){
+					String path = "C:\\Program Files\\Maze\\properties1.xml";
+					XMLEncoder xmlEncoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(path)));
+					xmlEncoder.writeObject(properties);
+					xmlEncoder.close();
+				}
+			}catch(Exception e){
+				 success = false;
+				 output = "Error saving to file\n";
+				 setChanged();
+				 notifyObservers(output);
+			}
+			
 			if(success){
-				String path = "C:\\Program Files\\Maze\\properties1.xml";
-				XMLEncoder xmlEncoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(path)));
-				xmlEncoder.writeObject(properties);
-				xmlEncoder.close();
+				output = "XML File has been change please restart the program\n";
+				setChanged();
+				notifyObservers(output);
 			}
-		}catch(Exception e){
-			 success = false;
-			 output = "Error saving to file\n";
-			 setChanged();
-			 notifyObservers(output);
-		}
-		
-		if(success){
-			output = "XML File has been change please restart the program\n";
-			setChanged();
-			notifyObservers(output);
 		}
 	}
 }

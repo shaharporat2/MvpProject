@@ -13,6 +13,11 @@ public class SaveConfiguration extends AbstractCommand {
 
 	@Override
 	public void doCommand(String[] param) {
+		if(param.length == 1){
+			LinkedList<String> args = new LinkedList<>();
+			args.addLast(param[0]);
+			getModel().SaveConfiguration(args);
+		}
 		if(param.length == 3){
 			LinkedList<String> args = new LinkedList<>();
 			args.addLast(param[1]);
