@@ -1,6 +1,8 @@
 package view;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
@@ -47,6 +49,18 @@ public class generateMazeWindow extends BasicWindows {
 		defaulti.setText("use default");
 		Button generateMaze=new Button(getShell(),SWT.PUSH);
 		generateMaze.setText("create maze");
+		
+		
+		getShell().addDisposeListener(new DisposeListener() {
+			
+			@Override
+			public void widgetDisposed(DisposeEvent arg0) {
+				BuildingCommand("exit");
+				setChanged();
+				notifyObservers(getPharseCommand());				
+			}
+		});
+		
 		
 		
 		defaulti.addSelectionListener(new SelectionListener() {

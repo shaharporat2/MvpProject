@@ -30,7 +30,6 @@ import images.images;
 public class MazeDisplay extends Canvas {
 	
 	
-	Image fire;
 	Maze3d maze3d;
 	
 	int [][] mazeData;
@@ -95,10 +94,11 @@ public class MazeDisplay extends Canvas {
 				for(int i=0;i<mazeData.length;i++){
 					for(int j=0;j<mazeData[i].length;j++){
 						int x=j*w;
-						int y=i*h;
+						int y=i*h;	
+						
 						if((position.getRows() == maze3d.getRows()) && (position.getCols() == maze3d.getCols()) && (position.getFloor() == maze3d.getFloor())){
-							isGoolPosition();
 							//loadImage(getShell());
+							//isGoolPosition();
 						}
 						else if((position.getRows() == i) && (position.getCols() == j)){
 							e.gc.drawImage(img, 0, 0, img.getBounds().width, img.getBounds().height, x, y, w, h);
@@ -132,9 +132,6 @@ public class MazeDisplay extends Canvas {
 			Position newPosition = new Position(position.getFloor(),position.getRows(),position.getCols()+1);
 			position.setPosition(newPosition);
 		}
-		
-			this.redraw();
-			isGoolPosition();
 	}
 	
 	public void moveZDown(){
@@ -143,8 +140,6 @@ public class MazeDisplay extends Canvas {
 			Position newPosition = new Position(position.getFloor(),position.getRows(),position.getCols()-1);
 			position.setPosition(newPosition);
 		}
-		this.redraw();
-		isGoolPosition();
 	}
 	
 	public void moveXUp(){
@@ -153,8 +148,6 @@ public class MazeDisplay extends Canvas {
 			Position newPosition = new Position(position.getFloor(),position.getRows() + 1,position.getCols());
 			position.setPosition(newPosition);
 		}
-		this.redraw();
-		isGoolPosition();
 	}
 	
 	public void moveXDown(){
@@ -163,9 +156,6 @@ public class MazeDisplay extends Canvas {
 			Position newPosition = new Position(position.getFloor(),position.getRows()-1,position.getCols());
 			position.setPosition(newPosition);
 		}
-		this.redraw();
-		isGoolPosition();
-
 	}
 	
 	public void moveFloorDown(){
@@ -176,8 +166,6 @@ public class MazeDisplay extends Canvas {
 			setMazeData(maze3d.getCrossSectionByY(position.getFloor()));
 		}
 		this.redraw();
-		isGoolPosition();
-
 	}
 	
 	public void moveFloorUp(){
@@ -187,15 +175,13 @@ public class MazeDisplay extends Canvas {
 			position.setPosition(newPosition);
 			setMazeData(maze3d.getCrossSectionByY(position.getFloor()));	
 			}
-		this.redraw();
-		isGoolPosition();
 	}	
-	
+	/*
 	public void displaySolution(){
 		maze3d.setStartPosition(position);
 		
 	}
-	
+	*/
 	public boolean prepreSolution(Object o){
 		sol = (Solution)o;
 		String [] cord;
@@ -210,14 +196,14 @@ public class MazeDisplay extends Canvas {
 			Position solvposition = new Position(Integer.parseInt(floor),Integer.parseInt(rows),Integer.parseInt(cols));
 			pospath.addLast(solvposition);
 		}
+		position.setPosition(pospath.getFirst());
 		return true;
 	}
 	public boolean displayHelp(){
 		if(pospath.isEmpty()){
 			return true;
 		}else{
-			position = pospath.getFirst();
-			pospath.removeFirst();
+			position.setPosition(pospath.removeFirst());
 			return false;
 		}
 	}
@@ -226,7 +212,6 @@ public class MazeDisplay extends Canvas {
 		Utils util = new Utils();
 		 String resource = util.getClass().getResource("firework03.gif").getPath();
 		try{
-			fire = new Image(getDisplay(), resource);
 		}catch(Exception e){
 			System.out.println("Error loading pic");
 		}

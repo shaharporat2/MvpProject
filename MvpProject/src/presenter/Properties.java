@@ -111,7 +111,8 @@ public class Properties implements Serializable {
 		sb.append("mazeGenerate: " + getMazeGenerate() + "\n");
 		sb.append("Default solve: " + getDefaultSolve() + "\n");
 		sb.append("Program path: " + getProgramPath() + "\n");
-		sb.append("Default maze values " + getDefaultMaze());
+		String [] def = getDefaultMaze();  
+		sb.append("Default maze values: name:" +def[1] + " floor=" + def[2]+ ", rows=" +def[3]+ ", cols=" + def[4]);
 		return sb.toString();
 	}	
 }

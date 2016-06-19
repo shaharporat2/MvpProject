@@ -5,6 +5,8 @@ import java.net.URL;
 import java.util.Observer;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ControlEvent;
+import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
@@ -76,17 +78,41 @@ public class MainWindows extends BasicWindows implements View, Runnable {
 		getShell().setBackgroundImage(mazeImg);
 		Rectangle rect = mazeImg.getBounds();
         getShell().setSize(rect.width,rect.height);
+        getShell().setMinimumSize(rect.width,rect.height);
 		
 		
-		
+        getShell().addControlListener(new ControlListener() {
+			
+			@Override
+			public void controlResized(ControlEvent arg0) {
+				Rectangle rect = getShell().getBounds();
+				if(!rect.equals(mazeImg.getBounds()) || (getShell().getMaximized() == false	)){
+					Rectangle rec = mazeImg.getBounds();
+			        getShell().setSize(rect.width,rect.height);
+				}
+				
+			}
+			
+			@Override
+			public void controlMoved(ControlEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+        
+        
 		/*Generate Maze Section*/
 		
-		Button genreratemaze = new Button(getShell(),SWT.BORDER);
+		Button genreratemaze = new Button(getShell(),SWT.BORDER | SWT.MIN | SWT.MAX);
 		genreratemaze.setText("GenerateMaze");
 		
 		// add an event handler for pushing the generate button
 		genreratemaze.addSelectionListener(new SelectionListener(){
 
+		
+			
+			
+			
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				getShell().dispose();

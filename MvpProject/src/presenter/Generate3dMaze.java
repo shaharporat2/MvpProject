@@ -16,8 +16,6 @@ public class Generate3dMaze extends AbstractCommand {
 				param[2] = "-1";
 				param[3] = "-1";
 				param[4] = "-1";
-				long time=System.currentTimeMillis();
-				param[1] = param[1] + String.valueOf(time); 
 		}
 		try{
 			String name = param[1];

@@ -76,7 +76,8 @@ public class Mymodel extends Observable implements Model {
 		if((floor == -1) && (cols == -1) && ( rows == -1))
 		{
 			String [] param = properties.getDefaultMaze();
-			name = param[1];
+			long time=System.currentTimeMillis();
+			name = param[1] + time;
 			floor = Integer.parseInt(param[2]);
 			rows = Integer.parseInt(param[3]);
 			cols = Integer.parseInt(param[4]);

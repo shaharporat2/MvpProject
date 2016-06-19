@@ -135,6 +135,8 @@ public class MazeWindow extends BasicWindows implements View{
 		}catch (Exception e){
 			
 		}
+		
+		mazeDisplay.redraw();
 	}
 	
 		
@@ -153,21 +155,33 @@ public class MazeWindow extends BasicWindows implements View{
 				switch (e.keyCode) {
 				case SWT.ARROW_DOWN:
 					mazeDisplay.moveXUp();
+					mazeDisplay.redraw();
+					mazeDisplay.isGoolPosition();
 					break;
 				case SWT.ARROW_UP:
 					mazeDisplay.moveXDown();
+					mazeDisplay.redraw();
+					mazeDisplay.isGoolPosition();
 					break;
 				case SWT.ARROW_LEFT:
 					mazeDisplay.moveZDown();
+					mazeDisplay.redraw();
+					mazeDisplay.isGoolPosition();
 					break;
 				case SWT.ARROW_RIGHT:
 					mazeDisplay.moveZUp();
+					mazeDisplay.redraw();
+					mazeDisplay.isGoolPosition();
 					break;
 				case SWT.PAGE_DOWN:
 					mazeDisplay.moveFloorDown();
+					mazeDisplay.redraw();
+					mazeDisplay.isGoolPosition();
 					break;
 				case SWT.PAGE_UP:
 					mazeDisplay.moveFloorUp();
+					mazeDisplay.redraw();
+					mazeDisplay.isGoolPosition();
 					break;
 				default:
 					break;
